@@ -1,0 +1,39 @@
+global:
+  scrape_interval: 15s
+  scrape_timeout: 15s
+  evaluation_interval: 15s
+
+  external_labels:
+    monitor: 'codelab-monitor'
+    query_log_file: query_log_file.log
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets: ['alertmanager:9093']
+
+#rule_files:
+#  - "first_rules.yml"
+#  - "second_rules.yml"
+
+
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 10s
+    scrape_timeout: 10s
+#    metrics_path: '/metrics/'
+#    scheme: 'http'
+    static_configs:
+    - targets: ['prometheus:9090']
+#      labels:
+#        service: 'monitor'
+  - job_name: 'node-01-static'
+    static_configs:
+      - targets: ['node_exporter:9100']
+
+  - job_name: "spring-actuator"
+    metrics_path: '/actuator/prometheus'
+#    scrape_interval: 1s
+    static_configs:
+      - targets: ['host.docker.internal:8080']

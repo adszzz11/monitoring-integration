@@ -1,0 +1,43 @@
+version: "3.9"
+
+name: prometheus-integration
+
+networks:
+  t4y:
+   driver: bridge
+
+services:
+####################PROMETHEUS####################
+  prometheus:
+    extends:
+      file: ./prometheus/prometheus-compose.yml
+      service: prometheus
+####################PROMETHEUS####################
+
+####################GRAFANA#######################
+  grafana:
+    extends:
+      file: ./grafana/grafana-compose.yml
+      service: grafana
+####################GRAFANA#######################
+
+####################NODE_EXPORTER#################
+  node_exporter:
+    extends:
+      file: node_exporter/node_exporter-compose.yml
+      service: node_exporter
+####################NODE_EXPORTER#################
+
+####################LOKI##########################
+  loki:
+    extends:
+      file: loki/loki-compose.yml
+      service: loki
+####################LOKI##########################
+
+####################PROMTAIL######################
+  promtail:
+    extends:
+      file: promtail/promtail-compose.yml
+      service: promtail
+####################PROMTAIL######################
