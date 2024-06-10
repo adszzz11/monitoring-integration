@@ -1,0 +1,22 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+exporters:
+  logging:
+    loglevel: debug
+  prometheus:
+    endpoint: "0.0.0.0:8888"
+  tempo:
+    endpoint: "http://tempo:3200"
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [tempo]
+    metrics:
+      receivers: [otlp]
+      exporters: [prometheus]

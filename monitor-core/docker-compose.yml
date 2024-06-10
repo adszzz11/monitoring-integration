@@ -13,14 +13,14 @@ services:
 ####################PROMETHEUS####################
   prometheus:
     extends:
-      file: ./prometheus/prometheus-compose.yml
+      file: prometheus/prometheus-compose.yml
       service: prometheus
 ####################PROMETHEUS####################
 
 ####################GRAFANA#######################
   grafana:
     extends:
-      file: ./grafana/grafana-compose.yml
+      file: grafana/grafana-compose.yml
       service: grafana
 ####################GRAFANA#######################
 
@@ -44,3 +44,13 @@ services:
       file: promtail/promtail-compose.yml
       service: promtail
 ####################PROMTAIL######################
+
+####################TEMPO#########################
+  tempo:
+    image: grafana/tempo:latest
+    container_name: tempo
+    ports:
+      - 3200:3200
+    networks:
+      - monitoring
+####################TEMPO#########################

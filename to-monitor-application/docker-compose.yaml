@@ -1,0 +1,15 @@
+version: '3.9'
+
+networks:
+  applications:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.2.0/24
+
+
+services:
+  otel-collector:
+    extends:
+      file: open-telemetry-collector/open-telemetry-compose.yaml
+      service: otel-collector
