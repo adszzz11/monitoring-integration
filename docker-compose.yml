@@ -5,6 +5,9 @@ name: prometheus-integration
 networks:
   t4y:
    driver: bridge
+   ipam:
+     config:
+      - subnet: 192.168.1.0/24
 
 services:
 ####################PROMETHEUS####################
