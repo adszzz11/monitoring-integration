@@ -4,19 +4,36 @@ receivers:
       grpc:
       http:
 
+  filelog:
+    include:
+      - /var/log/**/*.log
+    start_at: beginning
+
 exporters:
   logging:
     loglevel: debug
+  loki:
+    endpoint: "http://loki:3100/loki/api/v1/push"
   prometheus:
     endpoint: "0.0.0.0:8888"
   tempo:
     endpoint: "http://tempo:3200"
 
+processors:
+  batch:
+    timeout: 5s
+
 service:
   pipelines:
     traces:
       receivers: [otlp]
+      processors: [batch]
       exporters: [tempo]
     metrics:
       receivers: [otlp]
+      processors: [batch]
       exporters: [prometheus]
+    logs:
+      receivers: [filelog]
+      processors: [batch]
+      exporters: [loki]

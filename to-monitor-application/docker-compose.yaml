@@ -1,15 +1,27 @@
 version: '3.9'
 
+name: monitor_app
+
 networks:
   applications:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 192.168.2.0/24
-
-
+#    ipam:
+#      config:
+#        - subnet: 192.168.2.0/24
+    external: true
+  t4y:
+    external: true
 services:
+####################OPEN-TELEMETRY-COLLECTOR######
   otel-collector:
     extends:
       file: open-telemetry-collector/open-telemetry-compose.yaml
       service: otel-collector
+####################OPEN-TELEMETRY-COLLECTOR######
+
+####################PROMTAIL######################
+#  promtail:
+#    extends:
+#      file: ../to-monitor-application/promtail/promtail-compose.yaml
+#      service: promtail
+####################PROMTAIL######################

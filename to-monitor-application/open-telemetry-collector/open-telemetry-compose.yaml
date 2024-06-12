@@ -7,9 +7,11 @@ services:
     ports:
       - 4317:4317
       - 55680:55680
+      - 8888:8888 # Prometheus Exporter 포트 매핑
     volumes:
+      - /Users/danal_mac01/work/docker/volume/logs:/var/log/
       - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
     command: [ "--config", "/etc/otel-collector-config.yaml" ]
     networks:
       - applications
-      - monitoring
+      - t4y

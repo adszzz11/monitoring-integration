@@ -37,6 +37,8 @@ services:
     restart: always
     depends_on:
       - prometheus
+      - tempo
+      - loki
     networks:
       - t4y
 ####################GRAFANA#######################

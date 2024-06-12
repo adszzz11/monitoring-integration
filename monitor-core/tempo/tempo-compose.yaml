@@ -1,0 +1,10 @@
+version: '3.9'
+####################TEMPO#########################
+tempo:
+  image: grafana/tempo:latest
+  container_name: tempo
+  ports:
+    - 3200:3200
+  networks:
+    - t4y
+####################TEMPO#########################

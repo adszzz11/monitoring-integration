@@ -6,13 +6,13 @@ services:
     image: bitnami/prometheus
     container_name: prometheus
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
 #      - prometheus-data:/prometheus
     ports:
       - 9090:9090
     command:
 #      - '--storage.tsdb.path=/prometheus'
-      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--config.file=/etc/prometheus/prometheus.yaml'
     restart: always
     networks:
       - t4y

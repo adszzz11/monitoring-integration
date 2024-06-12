@@ -1,56 +1,47 @@
 version: "3.9"
 
-name: prometheus-integration
+name: monitor_core
 
 networks:
   t4y:
-   driver: bridge
-   ipam:
-     config:
-      - subnet: 192.168.1.0/24
+    external: true
+#   ipam:
+#     config:
+#      - subnet: 192.168.1.0/24
+
 
 services:
 ####################PROMETHEUS####################
   prometheus:
     extends:
-      file: prometheus/prometheus-compose.yml
+      file: prometheus/prometheus-compose.yaml
       service: prometheus
 ####################PROMETHEUS####################
 
 ####################GRAFANA#######################
   grafana:
     extends:
-      file: grafana/grafana-compose.yml
+      file: grafana/grafana-compose.yaml
       service: grafana
 ####################GRAFANA#######################
 
 ####################NODE_EXPORTER#################
   node_exporter:
     extends:
-      file: node_exporter/node_exporter-compose.yml
+      file: node_exporter/node_exporter-compose.yaml
       service: node_exporter
 ####################NODE_EXPORTER#################
 
 ####################LOKI##########################
   loki:
     extends:
-      file: loki/loki-compose.yml
+      file: loki/loki-compose.yaml
       service: loki
 ####################LOKI##########################
 
-####################PROMTAIL######################
-  promtail:
-    extends:
-      file: promtail/promtail-compose.yml
-      service: promtail
-####################PROMTAIL######################
-
 ####################TEMPO#########################
   tempo:
-    image: grafana/tempo:latest
-    container_name: tempo
-    ports:
-      - 3200:3200
-    networks:
-      - monitoring
+    extends:
+      file: tempo/tempo-compose.yaml
+      service: tempo
 ####################TEMPO#########################
